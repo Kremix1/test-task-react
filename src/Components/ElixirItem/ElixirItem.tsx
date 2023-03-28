@@ -1,12 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import { IElixir } from "../../assets/models";
 import './elixirItem.scss'
 import {Link} from "react-router-dom";
-interface ProductProps {
+interface ElixirItemProps {
     elixir: IElixir
 }
 
-export const ElixirItem = ({elixir}: ProductProps): JSX.Element => {
+export const ElixirItem = ({elixir}: ElixirItemProps): JSX.Element => {
 
     return(
         <Link to={`Elixirs/${elixir.id}`} className="main">

@@ -1,14 +1,14 @@
-import {useElixirs} from "../../hooks/fetchElixirs";
+import {useFetchElixirs} from "../../hooks/useFetchElixirs";
 import React from "react";
 import {Loading} from "../../Components/Loading/Loading";
-import {ElixirItem} from "../../Components/ProductItem/ElixirItem";
+import {ElixirItem} from "../../Components/ElixirItem/ElixirItem";
 import './elixirsPage.scss'
 import {Pagination} from "../../Components/Pagination/Pagination";
+import {useFinder} from "../../hooks/useFinder";
 
 export const ElixirsPage = () => {
-    //TODO: Создать хук usePagination в который отдать нужные и там просчитать
-    const {loading, currentElixirs, findElixir, input, currentPage, paginateUp, paginateDown} = useElixirs()
-
+    const {loading, elixirs} = useFetchElixirs()
+    const {currentElixirs, currentPage, input, paginateUp, paginateDown, findElixir} = useFinder(elixirs)
     return (
         <>
             {loading && <Loading/>}
@@ -30,7 +30,7 @@ export const ElixirsPage = () => {
                         <div className="main-page__filters__item">
                             <span className='main-page__lorem'>Название</span>
                             <div className="find">
-								<input className="main-page__filters__find" value={input} onChange={(e) => findElixir(e)}/>
+								<input className="main-page__filters__find" value={input!} onChange={(e) => findElixir(e)}/>
                             </div>
 						</div>
                         <div className="main-page__filters__item">
@@ -55,7 +55,6 @@ export const ElixirsPage = () => {
                     </div>
                 </div>
             }
-
         </>
     );
 }

@@ -8,7 +8,6 @@ import './elixirPage.scss'
 export const ElixirPage = () => {
     const {id} = useParams()
     const [elixir, setElixir] = useState<IElixir>()
-    //TODO: Подгрузка Эликсира с редакса по ID здесь, а не запросом на сервер
     const fetchProduct = async () => {
         const response = await axios.get(`https://wizard-world-api.herokuapp.com/Elixirs/${id}`)
         setElixir(response.data)
@@ -18,7 +17,6 @@ export const ElixirPage = () => {
     }, [])
 
     if(elixir)
-        //TODO: Поменять имена классов
     return (
         <div className="elixir">
             <Link to="/" className="elixir__back">

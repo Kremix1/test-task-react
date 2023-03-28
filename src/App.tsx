@@ -15,12 +15,9 @@ function App() {
 }
 
 //TODO: Апишка - https://wizard-world-api.herokuapp.com/swagger/index.html
-//TODO: Возвращение к списку по ТЗ
-//TODO: Фильтр
+//TODO: Селект и радиокнопки
 //TODO: Остальное ТЗ
 //TODO: Адаптив
-//TODO: Хранение данных в redux + переход к ним как к элементу по id на странице эликсира
-//TODO: Проверить на product/s везде в коде
 
 
 export default App;
