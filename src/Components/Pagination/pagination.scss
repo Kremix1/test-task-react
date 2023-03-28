@@ -1,0 +1,27 @@
+.pagination{
+  display: flex;
+  color: #fff;
+  align-items: center;
+  margin: 20px 0 0 0;
+  &__item{
+    color: #fff;
+    font-size: 18px;
+    user-select: none;
+  }
+  &__left{
+    width: 32px;
+    height: 32px;
+    background: url('../../../public/images/pagination/arrow-left.svg') 0 1px/100% no-repeat;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  &__right{
+    width: 32px;
+    height: 32px;
+    background: url('../../../public/images/pagination/arrow-right.svg') 0 1px/100% no-repeat;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
