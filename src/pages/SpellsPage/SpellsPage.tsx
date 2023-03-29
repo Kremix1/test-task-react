@@ -1,15 +1,15 @@
-import {useFetchElixirs} from "../../assets/hooks/useFetchElixirs";
+import {useFetchSpells} from "../../assets/hooks/useFetchSpells";
 import React, {useState} from "react";
 import {Loading} from "../../Components/Loading/Loading";
-import {ElixirItem} from "../../Components/ElixirItem/ElixirItem";
-import './elixirsPage.scss'
+import {SpellItem} from "../../Components/SpellItem/SpellItem";
+import './spellPage.scss'
 import {Pagination} from "../../Components/Pagination/Pagination";
 import {useFinder} from "../../assets/hooks/useFinder";
 import {Filters} from "../../Components/Filters/Filters";
 
-export const ElixirsPage = () => {
-    const {loading, elixirs} = useFetchElixirs()
-    const {currentElixirs, currentPage, input, paginateUp, paginateDown, findElixir} = useFinder(elixirs)
+export const SpellsPage = () => {
+    const {loading, spells} = useFetchSpells()
+    const {currentSpells, currentPage, input, paginateUp, paginateDown, findSpell} = useFinder(spells)
     const [filters, setFilters] = useState(false)
 
     return (
@@ -20,7 +20,7 @@ export const ElixirsPage = () => {
                     {!filters &&
                         <>
 							<div className="main-page__list">
-								<h1 className="main-page__header">Elixir's from Harry Potter World</h1>
+								<h1 className="main-page__header">Заклинания из мира Гарри Поттера</h1>
 								<div
 									className="main-page__open-filters"
 									onClick={() => setFilters(true)}
@@ -28,8 +28,8 @@ export const ElixirsPage = () => {
 									<div></div>
 									<h3>Фильтры</h3>
 								</div>
-                                {currentElixirs.map((elixir) =>
-                                    <ElixirItem key={elixir.id} elixir={elixir} />
+                                {currentSpells.map((spell) =>
+                                    <SpellItem key={spell.id} spell={spell} />
                                 )}
 								<Pagination
 									currentPage={currentPage}
@@ -44,7 +44,7 @@ export const ElixirsPage = () => {
                             filters={filters}
                             setFilters={setFilters}
                             input={input!}
-                            findElixir={findElixir}
+							findSpell={findSpell}
                         />
                     </div>
                 </div>

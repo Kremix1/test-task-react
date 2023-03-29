@@ -1,25 +1,38 @@
-import {ChangeEvent, useEffect, useRef, useState} from "react";
-import {IElixir} from "../models";
+import {ChangeEvent, useEffect, useState} from "react";
+import {ISpell} from "../models";
 
-export const useFinder = (elixirs: IElixir[]) => {
-    const [permElixirs, setPermElixirs] = useState<IElixir[]>([])
+export const useFinder = (spells: ISpell[]) => {
+    const [permSpells, setPermSpells] = useState<ISpell[]>([])
     const [currentPage, setCurrentPage] = useState(localStorage.getItem('page') ? Number(localStorage.getItem('page')) : 1)
     const [input, setInput] = useState(localStorage.getItem('finder') ? localStorage.getItem('finder') : '')
-    const [diff, setDiff] = useState(localStorage.getItem('difficulty') ? localStorage.getItem('difficulty') : '')
-    const elixirsPerPage = 5
-    let indexOfLastElixir = currentPage * elixirsPerPage
-    let indexOfFirstElixir = indexOfLastElixir - elixirsPerPage
-    const [currentElixirs, setCurrentElixirs] = useState(elixirs.slice(indexOfFirstElixir, indexOfLastElixir))
-    useEffect(() => {
-        setCurrentElixirs(permElixirs.slice(indexOfFirstElixir, indexOfLastElixir))
-    },[permElixirs, indexOfFirstElixir, indexOfLastElixir])
+    const [light, setLight] = useState(localStorage.getItem('light') ? localStorage.getItem('light') : '')
+    // @ts-ignore
+    const [types, setTypes] = useState<string[]>(localStorage.getItem('types') ? JSON.parse(localStorage.getItem('types')) : [])
+
+    const spellPerPage = 5
+    let indexOfLastSpell = currentPage * spellPerPage
+    let indexOfFirstSpell = indexOfLastSpell - spellPerPage
+
+    const [currentSpells, setCurrentSpells] = useState(spells.slice(indexOfFirstSpell, indexOfLastSpell))
 
     useEffect(() => {
-        setPermElixirs(elixirs.filter(elixir => elixir.difficulty.includes(diff!)
-            && elixir.name.toLowerCase().includes(input!)))
-    }, [elixirs, input, diff])
+        setCurrentSpells(permSpells.slice(indexOfFirstSpell, indexOfLastSpell))
+    },[permSpells, indexOfFirstSpell, indexOfLastSpell])
+
+    useEffect(() => {
+        let aboba = require("lodash")
+        let test1 = ['1', 'abo', 'fe']
+        let test2 = ['1', 'abo', 'fez', 'pu']
+        console.log(aboba.intersection(test1, test2))
+        console.log(types)
+        setPermSpells(spells.filter(spell => spell.light.includes(light!)
+            && spell.name.toLowerCase().includes(input!)
+            && types.indexOf(spell.type) !== -1
+        ))
+        permSpells.map(spell => console.log(types.indexOf(spell.type)))
+    }, [spells, input, light, types])
     const paginateUp = () => {
-        if(currentPage + 1 < Math.ceil(permElixirs.length / elixirsPerPage)){
+        if(currentPage + 1 < Math.ceil(permSpells.length / spellPerPage)){
             setCurrentPage(prev => prev + 1)
             localStorage.setItem('page', (currentPage + 1).toString())
         }
@@ -31,23 +44,25 @@ export const useFinder = (elixirs: IElixir[]) => {
         }
     }
 
-    const findElixir = (difficulty?: string, e?: ChangeEvent<HTMLInputElement>, ) => {
+    const findSpell = (light?: string, e?: ChangeEvent<HTMLInputElement>, type?: ChangeEvent<HTMLSelectElement>) => {
         if(e){
             setInput(e.target.value)
             localStorage.setItem('finder', e.target.value)
         }
-        if(difficulty){
-            setDiff(difficulty)
-            localStorage.setItem('difficulty', difficulty)
+        if(light){
+            setLight(light)
+            localStorage.setItem('light', light)
         }
-        setPermElixirs(elixirs.filter(elixir => elixir.difficulty.includes(diff!)
-            && elixir.name.toLowerCase().includes(input!)))
+        if(type){
+            setTypes([...types, type.target.value])
+            localStorage.setItem('types', JSON.stringify(types))
+        }
+        setPermSpells(spells.filter(spell => spell.light.includes(light!)
+            && spell.name.toLowerCase().includes(input!)
+            && types.indexOf(spell.type) !== -1
+        ))
         setCurrentPage(1)
         localStorage.setItem('page', '1')
     }
-    const SortDifficulty = (value: string) => {
-        setCurrentPage(1)
-        localStorage.setItem('page', '1')
-    }
-    return {paginateUp, paginateDown, findElixir, SortDifficulty, currentElixirs, currentPage, input}
+    return {paginateUp, paginateDown, findSpell, currentSpells, currentPage, input}
 }

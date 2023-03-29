@@ -1,13 +1,8 @@
-export interface IElixir{
-    id: number,
+export interface ISpell {
+    id: string,
     name: string,
+    incantation: string,
     effect: string,
-    sideEffects: string,
-    difficulty: string,
-    ingredients: Ingredient[],
-}
-
-interface Ingredient{
-    id: number,
-    name: string
+    type: string,
+    light: string,
 }

@@ -1,16 +1,17 @@
 import {RadioButton} from "../RadioButton/RadioButton";
 import './filters.scss'
 import React, {ChangeEvent, Dispatch, SetStateAction} from "react";
+import {Select} from "../Select/Select";
 
 interface FiltersProps {
     filters: boolean,
     setFilters: Dispatch<SetStateAction<boolean>>,
     input: string,
-    findElixir: (difficulty: string, e?: ChangeEvent<HTMLInputElement>) => void,
+    findSpell: (light?: string, e?: ChangeEvent<HTMLInputElement>, type?: ChangeEvent<HTMLSelectElement>) => void,
 }
 
-export const Filters: React.FC<FiltersProps> = ({filters, setFilters, input, findElixir}: FiltersProps) => {
-    const difficulties = ['Unknown', 'Advanced', 'Moderate', 'Beginner', 'OrdinaryWizardingLevel', 'OneOfAKind']
+export const Filters: React.FC<FiltersProps> = ({filters, setFilters, input, findSpell}: FiltersProps) => {
+    const lights = ['Green', 'Orange', 'Yellow', 'Transparent', 'Purple', 'Fire', 'None']
 
     return (
         <>
@@ -21,22 +22,18 @@ export const Filters: React.FC<FiltersProps> = ({filters, setFilters, input, fin
             <div className="main-page__filters__item">
                 <span className='main-page__lorem'>Название</span>
                 <div className="find">
-                    <input className="main-page__filters__find" value={input!} onChange={(e) => findElixir("", e)}/>
+                    <input className="main-page__filters__find" value={input!} onChange={(e) => findSpell("", e)}/>
                 </div>
             </div>
             <div className="main-page__filters__item">
-                <span className='main-page__lorem'>Ингредиенты</span>
-                <select multiple={true}>
-                    <option>Корешки</option>
-                    <option>Вершки</option>
-                    <option>Горшки</option>
-                </select>
+                <span className='main-page__lorem'>Тип заклинания</span>
+                <Select setSelect={findSpell}/>
             </div>
             <div className="main-page__filters__item">
-                <span className='main-page__lorem'>Сложность</span>
+                <span className='main-page__lorem'>Свет заклинания</span>
                 <form className='main-page__radio'>
-                    {difficulties.map(difficult =>
-                        <RadioButton key={difficult} value={difficult} func={findElixir}/>
+                    {lights.map(light =>
+                        <RadioButton key={light} value={light} func={findSpell}/>
                     )}
                 </form>
             </div>
