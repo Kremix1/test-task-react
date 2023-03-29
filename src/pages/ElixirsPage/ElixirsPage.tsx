@@ -1,57 +1,51 @@
-import {useFetchElixirs} from "../../hooks/useFetchElixirs";
-import React from "react";
+import {useFetchElixirs} from "../../assets/hooks/useFetchElixirs";
+import React, {useState} from "react";
 import {Loading} from "../../Components/Loading/Loading";
 import {ElixirItem} from "../../Components/ElixirItem/ElixirItem";
 import './elixirsPage.scss'
 import {Pagination} from "../../Components/Pagination/Pagination";
-import {useFinder} from "../../hooks/useFinder";
+import {useFinder} from "../../assets/hooks/useFinder";
+import {Filters} from "../../Components/Filters/Filters";
 
 export const ElixirsPage = () => {
     const {loading, elixirs} = useFetchElixirs()
     const {currentElixirs, currentPage, input, paginateUp, paginateDown, findElixir} = useFinder(elixirs)
+    const [filters, setFilters] = useState(false)
+
     return (
         <>
             {loading && <Loading/>}
             {!loading &&
                 <div className="main-page">
-                    <div className="main-page__list">
-                    <h1 className="main-page__header">Elixir's from Harry Potter World</h1>
-                    {currentElixirs.map((elixir) =>
-                        <ElixirItem key={elixir.id} elixir={elixir} />
-                    )}
-                    <Pagination
-                        currentPage={currentPage}
-                        paginateUp={paginateUp}
-                        paginateDown={paginateDown}
-                    />
-					</div>
-                    <div className="main-page__filters">
-                        <h2>Фильтры</h2>
-                        <div className="main-page__filters__item">
-                            <span className='main-page__lorem'>Название</span>
-                            <div className="find">
-								<input className="main-page__filters__find" value={input!} onChange={(e) => findElixir(e)}/>
-                            </div>
-						</div>
-                        <div className="main-page__filters__item">
-                            <span className='main-page__lorem'>Ингредиенты</span>
-                            <select>
-                                <option>Корешки</option>
-                                <option>Вершки</option>
-                                <option>Горшки</option>
-                            </select>
-						</div>
-                        <div className="main-page__filters__item">
-							<span className='main-page__lorem'>Сложность</span>
-                            <form>
-                                <input type="radio" id="Абобка"/>
-                                <label htmlFor='Абобка'>Абобка</label>
-                                <input type="radio" id="БИБА!"/>
-                                <label htmlFor='БИБА!'>БИБА!</label>
-                                <input type="radio" id="ЗАЛУПА"/>
-                                <label htmlFor='ЗАЛУПА'>ЗАЛУПА</label>
-                            </form>
-						</div>
+                    {!filters &&
+                        <>
+							<div className="main-page__list">
+								<h1 className="main-page__header">Elixir's from Harry Potter World</h1>
+								<div
+									className="main-page__open-filters"
+									onClick={() => setFilters(true)}
+								>
+									<div></div>
+									<h3>Фильтры</h3>
+								</div>
+                                {currentElixirs.map((elixir) =>
+                                    <ElixirItem key={elixir.id} elixir={elixir} />
+                                )}
+								<Pagination
+									currentPage={currentPage}
+									paginateUp={paginateUp}
+									paginateDown={paginateDown}
+								/>
+							</div>
+                        </>
+                    }
+                    <div className={filters ? 'main-page__filters show-filters' : 'main-page__filters'}>
+                        <Filters
+                            filters={filters}
+                            setFilters={setFilters}
+                            input={input!}
+                            findElixir={findElixir}
+                        />
                     </div>
                 </div>
             }

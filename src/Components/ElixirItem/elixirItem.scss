@@ -1,13 +1,15 @@
 .main{
-  border: 1px solid gray;
   margin: 3px;
-  padding: 30px;
+  padding: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
   color: #fff;
   text-decoration: none;
   align-items: start;
+  position: relative;
+  border-radius: 8px;
+  background: #22242A;
   h2{
     color: #F2F2F2;
     font-size: 22px;
@@ -24,4 +26,16 @@
   }
   &__description-item{
   }
+}
+.main:hover{
+  background: #393C46;
+}
+.main:hover::after{
+  position: absolute;
+  top: 45%;
+  left: 90%;
+  content: "";
+  width: 24px;
+  height: 24px;
+  background: url("../../../public/images/elixir/arrow-forward.svg")0/100% no-repeat;
 }

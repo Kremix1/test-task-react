@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {IElixir} from "../assets/models";
+import {IElixir} from "../models";
 import axios from "axios";
 
 export const useFetchElixirs = () => {

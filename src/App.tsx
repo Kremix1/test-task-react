@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import {ElixirsPage} from "./pages/ElixirsPage/ElixirsPage";
 import {ElixirPage} from "./pages/ElixirPage/ElixirPage";
 
-function App() {
+export default function App() {
     return(
         <>
             <Routes>
@@ -14,10 +14,5 @@ function App() {
     )
 }
 
-//TODO: Апишка - https://wizard-world-api.herokuapp.com/swagger/index.html
-//TODO: Селект и радиокнопки
-//TODO: Остальное ТЗ
-//TODO: Адаптив
-
-
-export default App;
+// Апишка - https://wizard-world-api.herokuapp.com/swagger/index.html
+//TODO: Селект, добавить его в useEffect(зависимость от его стейта + проверка в setPermElixirs)
