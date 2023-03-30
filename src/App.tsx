@@ -16,5 +16,3 @@ export default function App() {
 
 // Апишка - https://wizard-world-api.herokuapp.com/swagger/index.html
 //TODO: Селект, добавить его в useEffect(зависимость от его стейта + проверка в setPermElixirs)
-//TODO: Проверить на spell
-//TODO: Поменять все стили на spell
