@@ -12,7 +12,6 @@ interface FiltersProps {
 
 export const Filters: React.FC<FiltersProps> = ({filters, setFilters, input, findSpell}: FiltersProps) => {
     const lights = ['Green', 'Orange', 'Yellow', 'Transparent', 'Purple', 'Fire', 'None']
-
     return (
         <>
             {filters ?

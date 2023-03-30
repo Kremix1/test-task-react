@@ -28,6 +28,7 @@ export const Select = ({setSelect}: SelectProps) => {
     return (
         <div>
             <MultiSelect
+                className='dark'
                 options={spellTypesInitial}
                 value={selected}
                 onChange={setSelected}
