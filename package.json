@@ -11,6 +11,7 @@
     "choices.js": "^10.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-multi-select-component": "^4.3.4",
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "scss": "^0.2.4",

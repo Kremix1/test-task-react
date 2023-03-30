@@ -1,20 +1,39 @@
 import './select.scss'
-import {ChangeEvent} from "react";
+import {useEffect} from "react";
+import React, { useState } from "react";
+import { MultiSelect } from "react-multi-select-component";
 
 interface SelectProps {
-    setSelect: (light?: string, e?: ChangeEvent<HTMLInputElement>, type?: ChangeEvent<HTMLSelectElement>) => void,
+    setSelect: (light?: string, e?: undefined, type?: any[]) => void,
 }
 
+export const spellTypesInitial = [
+    { label: "Charm", value: "Charm" },
+    { label: "Conjuration", value: "Conjuration" },
+    { label: "Spell", value: "Spell" },
+    { label: "Transfiguration", value: "Transfiguration" },
+    { label: "HealingSpell", value: "HealingSpell" },
+    { label: "DarkCharm", value: "DarkCharm" },
+    { label: "Jinx", value: "Jinx" },
+    { label: "Curse", value: "Curse" },
+    { label: "CounterSpell", value: "CounterSpell" },
+    { label: "DarkArts", value: "DarkArts" },
+];
 export const Select = ({setSelect}: SelectProps) => {
-    const types = ['Charm', 'Conjuration', 'Spell', 'Transfiguration', 'HealingSpell', 'DarkCharm', 'Jinx', 'Curse', 'CounterSpell', 'DarkArts']
-
+    const [selected, setSelected] = useState([]);
+    useEffect(() => {
+        setSelect('', undefined, selected)
+        console.log(selected)
+    },[selected])
     return (
-        <>
-            <select name="select[]" multiple={true} onChange={(e) => setSelect('', undefined, e)}>
-                {types.map(type =>
-                    <option key={type}>{type}</option>
-                )}
-            </select>
-        </>
+        <div>
+            <MultiSelect
+                options={spellTypesInitial}
+                value={selected}
+                onChange={setSelected}
+                labelledBy="Select"
+                disableSearch={true}
+            />
+        </div>
     );
-}
+};

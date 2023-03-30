@@ -3,7 +3,7 @@ import React, {ChangeEvent} from "react";
 
 interface RadioButtonProps {
     value: string,
-    func: (light?: string, e?: ChangeEvent<HTMLInputElement>, type?: ChangeEvent<HTMLSelectElement>) => void,
+    func: (light?: string, e?: ChangeEvent<HTMLInputElement>, type?: any[]) => void,
 }
 
 export const RadioButton: React.FC<RadioButtonProps> = ({value, func}: RadioButtonProps) => {

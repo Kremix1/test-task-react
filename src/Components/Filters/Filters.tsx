@@ -7,7 +7,7 @@ interface FiltersProps {
     filters: boolean,
     setFilters: Dispatch<SetStateAction<boolean>>,
     input: string,
-    findSpell: (light?: string, e?: ChangeEvent<HTMLInputElement>, type?: ChangeEvent<HTMLSelectElement>) => void,
+    findSpell: (light?: string, e?: ChangeEvent<HTMLInputElement>, type?: any[]) => void,
 }
 
 export const Filters: React.FC<FiltersProps> = ({filters, setFilters, input, findSpell}: FiltersProps) => {
@@ -32,6 +32,10 @@ export const Filters: React.FC<FiltersProps> = ({filters, setFilters, input, fin
             <div className="main-page__filters__item">
                 <span className='main-page__lorem'>Свет заклинания</span>
                 <form className='main-page__radio'>
+                    <label className="custom-radio" onClick={() => findSpell('All')}>
+                        <input type="radio" name="light" value={'All'} defaultChecked={true}></input>
+                        <span>{'All'}</span>
+                    </label>
                     {lights.map(light =>
                         <RadioButton key={light} value={light} func={findSpell}/>
                     )}
